@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Chatty</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Chatty</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -12,7 +12,7 @@
                 <li><a href="#">Timeline</a></li>
                 <li><a href="#">Friends</a></li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" role="search" action="{{ route('search.results') }}">
                 <div class="form-group">
                     <input type="text" name="query" class="form-control" placeholder="Find People">
                 </div>

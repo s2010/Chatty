@@ -32,7 +32,7 @@ class AuthController extends Controller
     }
 
     public function getSignin()
-    {
+    { 
         return view('auth.signin');
     }
 
