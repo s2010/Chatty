@@ -34,6 +34,7 @@ class User extends Authenticatable
      * The function will get the full name of a user.
      *
      * @var array
+     * @return mixed|null|string
      */
 
     public function getName()
