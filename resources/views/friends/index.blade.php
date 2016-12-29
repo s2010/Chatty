@@ -14,6 +14,13 @@
         </div>
         <div class="col-lg-6">
             <h4>Friends Requests</h4>
+            @if(!$requests()->count())
+                <p>has no friend requests.Yet :)</p>
+            @else
+                @foreach($requests() as $user)
+                    @include('user/partials/userblock')
+                @endforeach
+            @endif
         </div>
     </div>
 @stop
