@@ -72,4 +72,15 @@ Route::get('/search', [
 Route::get('/user/{username}', [
     'uses' => '\Chatty\Http\Controllers\ProfileController@getProfile',
     'as' => 'profile.index',
-]); 
+]);
+
+Route::get('/profile/edit', [
+    'uses' => '\Chatty\Http\Controllers\ProfileController@getEdit',
+    'as' => 'profile.edit',
+    'middleware' => ['guest'],
+]);
+
+Route::post('/profile/edit', [
+    'uses' => '\Chatty\Http\Controllers\ProfileController@postEdit',
+    'middleware' => ['guest'],
+]);
