@@ -28,6 +28,11 @@ class FriendController extends Controller
             return redirect()
                 ->route('home')->with('info', 'That user could not be found');
         }
+
+        if(Auth::user()->id === $user->id)
+        {
+            return redirect('home');
+        }
         if (Auth::user()->hasFriendRequestsPending($user) || $user->hasFriendRequestsPending(Auth::user()))
         {
             return redirect()
@@ -48,5 +53,28 @@ class FriendController extends Controller
             ->route('profile.index',['username' => $username])
             ->with('info', 'friend request sent.');
 
+    }
+
+    public function getAccept($username)
+    {
+        $user = User::where('username', $username)->first();
+
+        if (!$user)
+        {
+            return redirect()
+                ->route('home')
+                ->with('info', 'That user could not be found');
+        }
+
+        if (!Auth::user()->hasFriendRequestsReceived($user))
+        {
+            return redirect()->route('home');
+        }
+
+        Auth::user()->acceptFriendRequest($user);
+
+        return redirect()
+            ->route('profile.index', ['username' => $username])
+            ->with('info','Friend request accepted.');
     }
 }
