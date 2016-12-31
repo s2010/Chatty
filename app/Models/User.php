@@ -117,4 +117,9 @@ class User extends Authenticatable
     {
         return (bool) $this->friends()->where('id', $user->id)->count();
     }
+
+    public function statuses()
+    {
+        return $this->belongsToMany('Chatty\Models\User', 'friends','friend_id','user_id');
+    }
 }
