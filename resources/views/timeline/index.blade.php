@@ -36,18 +36,21 @@
                               <li>{{$status->created_at->diffForHumans()}}</li>
                           </ul>
 
-                          {{--<div class="media">--}}
-                              {{--<a class="pull-left" href="#">--}}
-                                  {{--<img class="media-object" alt="" src="">--}}
-                              {{--</a>--}}
-                              {{--<div class="media-body">--}}
-                                  {{--<h4 class="media-heading"><a href="#"></a></h4>--}}
-                                  {{--<p>It's a lovely day</p>--}}
-                                  {{--<ul class="list-inline">--}}
-                                      {{--<li></li>--}}
-                                  {{--</ul>--}}
-                              {{--</div>--}}
-                          {{--</div>--}}
+                          @foreach($status->replies as $reply)
+                              <div class="media">
+                                  <a class="pull-left" href="{{ route('profile.index', ['username' => $reply->user->username]) }}">
+                                      <img class="media-object" alt="{{ route('profile.index', ['username' => $reply->user->username]) }}" src="{{ $reply->user->getAvatarUrl() }}">
+                                  </a>
+                                  <div class="media-body">
+                                      <h4 class="media-heading"><a href="#">{{ $reply->user->getNameOrUsername() }}</a></h4>
+                                      <p>{{ $reply->body }}</p>
+                                      <ul class="list-inline">
+                                          <li>{{ $reply->created_at->diffForHumans() }}</li>
+                                          <li></li>
+                                      </ul>
+                                  </div>
+                              </div>
+                          @endforeach
 
                           <form role="form" action="{{ route('status.reply') }}" method="post">
                               <div class="form-group{{ $errors->has("reply-{$status->id}" ? 'has-error': '') }}">
