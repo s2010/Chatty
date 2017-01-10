@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-lg-5">
             @if(!$statuses->count())
-                <p>There's nothing in your timeline, yet.</p>
+                <p>{{ $user->getFirstNameOrUsername() }} hasn't posted anything yet.</p>
             @else
               @foreach($statuses as $status)
                   <div class="media">
@@ -52,16 +52,18 @@
                               </div>
                           @endforeach
 
-                          <form role="form" action="{{ route('status.reply') }}" method="post">
-                              <div class="form-group{{ $errors->has("reply-{$status->id}" ? 'has-error': '') }}">
-                                  <textarea name="reply-{{$status->id}}" class="form-control" role="2" placeholder="Reply to this status"></textarea>
-                                  @if($errors->has('reply-{{$status->id}}'))
-                                      <span class="help-block">{{ $errors->first("reply-{$status->id}") }}</span>
-                                  @endif
-                              </div>
-                              <input type="submit" value="Reply" class="btn btn-default btn-sm">
-                              <input type="hidden" name="_token" value="{{ Session::token()}}">
-                          </form>
+                          @if($authUserIsFriend)
+                              <form role="form" action="{{ route('status.reply') }}" method="post">
+                                  <div class="form-group{{ $errors->has("reply-{$status->id}" ? 'has-error': '') }}">
+                                      <textarea name="reply-{{$status->id}}" class="form-control" role="2" placeholder="Reply to this status"></textarea>
+                                      @if($errors->has('reply-{{$status->id}}'))
+                                          <span class="help-block">{{ $errors->first("reply-{$status->id}") }}</span>
+                                      @endif
+                                  </div>
+                                  <input type="submit" value="Reply" class="btn btn-default btn-sm">
+                                  <input type="hidden" name="_token" value="{{ Session::token()}}">
+                              </form>
+                          @endif
                       </div>
                   </div>
               @endforeach

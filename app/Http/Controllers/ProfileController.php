@@ -4,6 +4,7 @@ namespace Chatty\Http\Controllers;
 
 use Chatty\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
@@ -15,7 +16,12 @@ class ProfileController extends Controller
         {
             abort(404);
         }
-        return view('profile.index');
+        $statuses = $user->statuses()->notReply()->get();
+
+        return view('profile.index')
+            ->with('user' , $user)
+            ->with('statuses' , $statuses)
+            ->with('authUserIsFriend' . Auth::user()->isFriendsWith($user));
     }
 
     public function getEdit()
