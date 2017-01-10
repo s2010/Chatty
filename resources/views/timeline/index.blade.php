@@ -52,7 +52,7 @@
                               </div>
                           @endforeach
 
-                          @if($authUserIsFriend)
+                          @if($authUserIsFriend || Auth::user()->id === $status->user->id)
                               <form role="form" action="{{ route('status.reply') }}" method="post">
                                   <div class="form-group{{ $errors->has("reply-{$status->id}" ? 'has-error': '') }}">
                                       <textarea name="reply-{{$status->id}}" class="form-control" role="2" placeholder="Reply to this status"></textarea>
