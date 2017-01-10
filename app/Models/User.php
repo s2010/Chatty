@@ -122,4 +122,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('Chatty\Models\User', 'friends','friend_id','user_id');
     }
+
+    public function likes()
+    {
+        return $this->morphMany('Chatty\Models\Like','likeable' );
+    }
 }
