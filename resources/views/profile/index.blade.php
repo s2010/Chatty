@@ -13,6 +13,11 @@
               <a href="{{route('friend.accept',['username' => $user->username])}}" class="btn btn-primary">Accept friend request</a>
           @elseif(Auth::user()->isFriendsWith($user))
               <p>You & {{$user->getFirstNameOrUsername()}} are friends.</p>
+
+              <form action="{{ route('friend.delete', ['username' => $user->username]) }}" method="post">
+                  <input type="submit" value="Delete Friend" class="btn btn-primary">
+                  <input type="hidden" name="_token" value="{{ Session::token()}}">
+              </form>
           @elseif(Auth::user()->id !== $user->id)
               <a href="{{route('friend.add',['username' => $user->username])}}" class="btn btn-primary">Add as friend</a>
           @endif

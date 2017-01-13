@@ -101,6 +101,12 @@ Route::get('/friends/add/{username}', [
     'middleware' => ['auth'],
 ]);
 
+Route::post('/friends/delete/{username}', [
+    'uses' => '\Chatty\Http\Controllers\FriendController@postDelete',
+    'as' => 'friend.delete',
+    'middleware' => ['auth'],
+]);
+
 
 Route::get('/friends/accept/{username}', [
     'uses' => '\Chatty\Http\Controllers\FriendController@getAccept',
