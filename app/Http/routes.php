@@ -124,3 +124,9 @@ Route::post('/status/{statusId}/reply', [
     'middleware' => ['auth'],
 ]);
 
+
+Route::post('/status/{statusId}/like', [
+    'uses' => '\Chatty\Http\Controllers\StatusController@postLike',
+    'as' => 'status.like',
+    'middleware' => ['auth'],
+]);

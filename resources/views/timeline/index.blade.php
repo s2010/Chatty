@@ -46,7 +46,9 @@
                                       <p>{{ $reply->body }}</p>
                                       <ul class="list-inline">
                                           <li>{{ $reply->created_at->diffForHumans() }}</li>
-                                          <li></li>
+                                          @if($reply->user->id !== Auth::user()->id)
+                                          <li><a href="{{ route('status.like', ['statusId' => $reply->id]) }}">Like</a></li>
+                                          @endif
                                       </ul>
                                   </div>
                               </div>
